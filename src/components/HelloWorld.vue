@@ -12,7 +12,7 @@
             <b-card no-body>
                 <b-tabs pills card vertical>
                     <b-tab title="主服务器">
-                        <b-table sticky-header="500px" striped hover :items="ServerContents" :fields="ServerFields" small="true" responsive="sm">
+                        <b-table sticky-header="525px" striped hover :items="ServerContents" :fields="ServerFields" small responsive="sm" :sort-by.sync="ServerSortItem">
                             <template v-slot:cell(server_light)="data">
                                 <b-button size="sm" class="mr-2" :variant="data.item.serverOnline?'success':'danger'">O</b-button>
                             </template>
@@ -20,7 +20,7 @@
                     </b-tab>
 
                     <b-tab title="场桥摄像机">
-                        <b-table sticky-header="500px" striped hover :items="BridgeContents" :fields="BridgeFields" small="true" responsive="sm">
+                        <b-table sticky-header="520px" striped hover :items="BridgeContents" :fields="BridgeFields" small responsive="sm" :sort-by.sync="BridgeSortItem">
                             <template v-slot:cell(1st_light)="data">
                                 <b-button size="sm" class="mr-2" :variant="data.item.fBridgeOnline?'success':'danger'">O</b-button>
                             </template>
@@ -31,7 +31,7 @@
                     </b-tab>
 
                     <b-tab title="RFID & Carema" active>
-                        <b-table sticky-header="520px" striped hover :items="RCContents" :fields="RCFields" small="true" responsive="sm">
+                        <b-table sticky-header="520px" striped hover :items="RCContents" :fields="RCFields" small responsive="sm" :sort-by.sync="RCSortItem">
                             <template v-slot:cell(RFID_light)="data">
                                 <b-button size="sm" class="mr-2" :variant="data.item.RFIDOnline?'success':'danger'">O</b-button>
                             </template>
@@ -55,10 +55,13 @@
     name: "HelloWorld",
     data(){
       return{
+        ServerSortItem:'serverType',
         ServerFields:[],
         ServerContents:[],
+        RCSortItem:'stationed',
         RCFields:[],
         RCContents:[],
+        BridgeSortItem:'stationed',
         BridgeFields:[],
         BridgeContents:[],
         timer:null,//定时器名称
@@ -128,30 +131,30 @@
           formatRCOutput(){
             this.RCFields = [
                 {key:'stationed', label:'标杆', sortable:true},
-                {key:"RFIDIP", label:'RFID-IP', sortable:true},
-                {key:'RFIDTimeStamp', label:'RFID时间戳', sortable:false},
-                {key:'RFID_light', label:'RFID亮灯',sortable:false},
-                {key:"cameraIP", label:'Camera-IP', sortable:true},
-                {key:'cameraTimeStamp', label:'Camera时间戳', sortable:false},
-                {key:'camera_light', label:'Camera亮灯', sortable:false}
+                // {key:"RFIDIP", label:'RFID-IP', sortable:true},
+                // {key:'RFIDTimeStamp', label:'RFID时间戳', sortable:false},
+                {key:'RFID_light', label:'RFID读写器',sortable:false},
+                // {key:"cameraIP", label:'Camera-IP', sortable:true},
+                // {key:'cameraTimeStamp', label:'Camera时间戳', sortable:false},
+                {key:'camera_light', label:'立杆抓拍相机', sortable:false}
             ]},
 
         formatBridgeOutput(){
             this.BridgeFields = [
                 {key:'stationed', label:'场桥', sortable:true},
-                {key:"fBridgeIP", label:'1st 场桥-IP', sortable:true},
-                {key:'fBridgeTimeStamp', label:'1st 场桥 时间戳', sortable:false},
-                {key:'1st_light', label:'1st场桥亮灯',sortable:false},
-                {key:"sBridgeIP", label:'2nd 场桥-IP', sortable:true},
-                {key:'sBridgeTimeStamp', label:'2nd 场桥 时间戳', sortable:false},
-                {key:'2nd_light', label:'2nd场桥亮灯', sortable:false}
+                // {key:"fBridgeIP", label:'1st 场桥-IP', sortable:true},
+                // {key:'fBridgeTimeStamp', label:'1st 场桥 时间戳', sortable:false},
+                {key:'1st_light', label:'1st场桥摄像机',sortable:false},
+                // {key:"sBridgeIP", label:'2nd 场桥-IP', sortable:true},
+                // {key:'sBridgeTimeStamp', label:'2nd 场桥 时间戳', sortable:false},
+                {key:'2nd_light', label:'2nd场桥摄像机', sortable:false}
         ]},
 
         formatServerOutput(){
             this.ServerFields = [
-                {key:'serverType', label:'服务器', sortable:false},
-                {key:"serverIP", label:'服务器IP', sortable:true},
-                {key:'serverTimeStamp', label:'服务器时间戳', sortable:false},
+                {key:'serverType', label:'服务器', sortable:true},
+                // {key:"serverIP", label:'服务器IP', sortable:true},
+                // {key:'serverTimeStamp', label:'服务器时间戳', sortable:false},
                 {key:'server_light', label:'服务器亮灯',sortable:false},
                 ]},
 
